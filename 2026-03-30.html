@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consensus Picks – March 31, 2026</title>
+<title>Consensus Picks – March 30, 2026</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -12,8 +12,57 @@
     background: #0d1117;
     color: #e6edf3;
     min-height: 100vh;
-    padding: 24px 16px 48px;
+    padding: 0 0 48px;
   }
+
+  /* NAV */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #161b22;
+    border-bottom: 1px solid #21262d;
+    padding: 12px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav a {
+    color: #58a6ff;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #30363d;
+    background: #0d1117;
+    transition: border-color 0.2s, background 0.2s;
+    white-space: nowrap;
+  }
+  .nav a:hover { border-color: #58a6ff; background: #1c2333; }
+  .nav .nav-center {
+    font-size: 0.82rem;
+    color: #8b949e;
+    text-align: center;
+    flex: 1;
+    padding: 0 12px;
+  }
+  .nav-center a {
+    border: none;
+    background: none;
+    color: #8b949e;
+    font-size: 0.82rem;
+    font-weight: 400;
+    padding: 0;
+  }
+  .nav-center a:hover { color: #58a6ff; background: none; border: none; }
+  .nav .nav-placeholder {
+    width: 90px;
+    visibility: hidden;
+  }
+
+  /* MAIN */
+  .inner { padding: 24px 16px 0; }
 
   .header {
     text-align: center;
@@ -83,10 +132,7 @@
     font-weight: 600;
     color: #f0f6fc;
   }
-  .meta {
-    font-size: 0.75rem;
-    color: #8b949e;
-  }
+  .meta { font-size: 0.75rem; color: #8b949e; }
   .meta span {
     background: #1f2937;
     border-radius: 4px;
@@ -94,17 +140,9 @@
     border: 1px solid #30363d;
   }
 
-  .bar-section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .bar-section { display: flex; flex-direction: column; gap: 10px; }
 
-  .team-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .team-row { display: flex; align-items: center; gap: 12px; }
   .team-name {
     width: 190px;
     font-size: 0.82rem;
@@ -121,7 +159,6 @@
     background: #0d1117;
     border-radius: 6px;
     overflow: hidden;
-    position: relative;
   }
   .bar-fill {
     height: 100%;
@@ -135,11 +172,9 @@
     color: #fff;
     transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
     min-width: 2px;
-    position: relative;
   }
   .bar-fill.favorite { background: linear-gradient(90deg, #1a56db, #3b82f6); }
   .bar-fill.underdog { background: linear-gradient(90deg, #6b3fa0, #a855f7); }
-  .bar-fill.even     { background: linear-gradient(90deg, #0f766e, #14b8a6); }
 
   .bar-label {
     font-size: 0.78rem;
@@ -172,41 +207,49 @@
 </head>
 <body>
 
-<div class="header">
-  <h1>⚾ Consensus Picks</h1>
-  <div class="subtitle">Free-to-Play · Moneyline · March 31, 2026</div>
-  <div class="pill">794 entries · 15 games</div>
-</div>
+<nav class="nav">
+  <div class="nav-placeholder"></div>
+  <div class="nav-center"><a href="../index.html">⌂ Index</a></div>
+  <a href="2026-03-31.html">Mar 31 →</a>
+</nav>
 
-<div class="sort-bar">
-  <label>Sort by:</label>
-  <select id="sortSelect" onchange="renderCards()">
-    <option value="entries">Total Entries</option>
-    <option value="consensus">Consensus % (highest)</option>
-    <option value="closest">Closest Split</option>
-    <option value="alpha">Alphabetical</option>
-  </select>
-</div>
+<div class="inner">
+  <div class="header">
+    <h1>⚾ Consensus Picks</h1>
+    <div class="subtitle">Free-to-Play · Moneyline · March 30, 2026</div>
+    <div class="pill">525 entries · 15 games</div>
+  </div>
 
-<div id="cards"></div>
+  <div class="sort-bar">
+    <label>Sort by:</label>
+    <select id="sortSelect" onchange="renderCards()">
+      <option value="entries">Total Entries</option>
+      <option value="consensus">Consensus % (highest)</option>
+      <option value="closest">Closest Split</option>
+      <option value="alpha">Alphabetical</option>
+    </select>
+  </div>
+
+  <div id="cards"></div>
+</div>
 
 <script>
 const RAW = [
-  { team1:"Toronto Blue Jays",      team2:"Colorado Rockies",        c1:485, c2:7,   total:492 },
-  { team1:"Philadelphia Phillies",  team2:"Washington Nationals",    c1:420, c2:26,  total:446 },
-  { team1:"Los Angeles Dodgers",    team2:"Cleveland Guardians",     c1:371, c2:12,  total:383 },
-  { team1:"Kansas City Royals",     team2:"Minnesota Twins",         c1:302, c2:40,  total:342 },
-  { team1:"Chicago Cubs",           team2:"Los Angeles Angels",      c1:305, c2:20,  total:325 },
-  { team1:"Miami Marlins",          team2:"Chicago White Sox",       c1:252, c2:71,  total:323 },
-  { team1:"Baltimore Orioles",      team2:"Texas Rangers",           c1:177, c2:105, total:282 },
-  { team1:"Cincinnati Reds",        team2:"Pittsburgh Pirates",      c1:201, c2:73,  total:274 },
-  { team1:"Milwaukee Brewers",      team2:"Tampa Bay Rays",          c1:181, c2:33,  total:214 },
-  { team1:"St. Louis Cardinals",    team2:"New York Mets",           c1:40,  c2:166, total:206 },
-  { team1:"Atlanta Braves",         team2:"Athletics",               c1:131, c2:48,  total:179 },
-  { team1:"Seattle Mariners",       team2:"New York Yankees",        c1:81,  c2:81,  total:162 },
-  { team1:"Houston Astros",         team2:"Boston Red Sox",          c1:34,  c2:90,  total:124 },
-  { team1:"San Diego Padres",       team2:"San Francisco Giants",    c1:90,  c2:24,  total:114 },
-  { team1:"Arizona Diamondbacks",   team2:"Detroit Tigers",          c1:51,  c2:53,  total:104 },
+  { team1:"Philadelphia Phillies",  team2:"Washington Nationals",   c1:298, c2:17,  total:315 },
+  { team1:"Toronto Blue Jays",      team2:"Colorado Rockies",        c1:310, c2:1,   total:311 },
+  { team1:"Kansas City Royals",     team2:"Minnesota Twins",         c1:245, c2:34,  total:279 },
+  { team1:"Los Angeles Dodgers",    team2:"Cleveland Guardians",     c1:243, c2:9,   total:252 },
+  { team1:"Chicago Cubs",           team2:"Los Angeles Angels",      c1:210, c2:12,  total:222 },
+  { team1:"Miami Marlins",          team2:"Chicago White Sox",       c1:156, c2:55,  total:211 },
+  { team1:"Cincinnati Reds",        team2:"Pittsburgh Pirates",      c1:139, c2:50,  total:189 },
+  { team1:"Baltimore Orioles",      team2:"Texas Rangers",           c1:111, c2:77,  total:188 },
+  { team1:"St. Louis Cardinals",    team2:"New York Mets",           c1:22,  c2:114, total:136 },
+  { team1:"Milwaukee Brewers",      team2:"Tampa Bay Rays",          c1:106, c2:19,  total:125 },
+  { team1:"Atlanta Braves",         team2:"Athletics",               c1:72,  c2:34,  total:106 },
+  { team1:"Seattle Mariners",       team2:"New York Yankees",        c1:42,  c2:44,  total:86  },
+  { team1:"Houston Astros",         team2:"Boston Red Sox",          c1:21,  c2:50,  total:71  },
+  { team1:"San Diego Padres",       team2:"San Francisco Giants",    c1:54,  c2:14,  total:68  },
+  { team1:"Arizona Diamondbacks",   team2:"Detroit Tigers",          c1:31,  c2:35,  total:66  },
 ];
 
 function getBadge(maxPct) {

@@ -12,8 +12,57 @@
     background: #0d1117;
     color: #e6edf3;
     min-height: 100vh;
-    padding: 24px 16px 48px;
+    padding: 0 0 48px;
   }
+
+  /* NAV */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #161b22;
+    border-bottom: 1px solid #21262d;
+    padding: 12px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav a {
+    color: #58a6ff;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #30363d;
+    background: #0d1117;
+    transition: border-color 0.2s, background 0.2s;
+    white-space: nowrap;
+  }
+  .nav a:hover { border-color: #58a6ff; background: #1c2333; }
+  .nav .nav-center {
+    font-size: 0.82rem;
+    color: #8b949e;
+    text-align: center;
+    flex: 1;
+    padding: 0 12px;
+  }
+  .nav-center a {
+    border: none;
+    background: none;
+    color: #8b949e;
+    font-size: 0.82rem;
+    font-weight: 400;
+    padding: 0;
+  }
+  .nav-center a:hover { color: #58a6ff; background: none; border: none; }
+  .nav .nav-placeholder {
+    width: 90px;
+    visibility: hidden;
+  }
+
+  /* MAIN */
+  .inner { padding: 24px 16px 0; }
 
   .header {
     text-align: center;
@@ -83,10 +132,7 @@
     font-weight: 600;
     color: #f0f6fc;
   }
-  .meta {
-    font-size: 0.75rem;
-    color: #8b949e;
-  }
+  .meta { font-size: 0.75rem; color: #8b949e; }
   .meta span {
     background: #1f2937;
     border-radius: 4px;
@@ -94,17 +140,9 @@
     border: 1px solid #30363d;
   }
 
-  .bar-section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .bar-section { display: flex; flex-direction: column; gap: 10px; }
 
-  .team-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .team-row { display: flex; align-items: center; gap: 12px; }
   .team-name {
     width: 190px;
     font-size: 0.82rem;
@@ -121,7 +159,6 @@
     background: #0d1117;
     border-radius: 6px;
     overflow: hidden;
-    position: relative;
   }
   .bar-fill {
     height: 100%;
@@ -135,7 +172,6 @@
     color: #fff;
     transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
     min-width: 2px;
-    position: relative;
   }
   .bar-fill.favorite { background: linear-gradient(90deg, #1a56db, #3b82f6); }
   .bar-fill.underdog { background: linear-gradient(90deg, #6b3fa0, #a855f7); }
@@ -171,23 +207,31 @@
 </head>
 <body>
 
-<div class="header">
-  <h1>⚾ Consensus Picks</h1>
-  <div class="subtitle">Free-to-Play · Moneyline · March 31, 2026</div>
-  <div class="pill">537 entries · 14 games</div>
-</div>
+<nav class="nav">
+  <a href="2026-03-30.html">← Mar 30</a>
+  <div class="nav-center"><a href="../index.html">⌂ Index</a></div>
+  <div class="nav-placeholder"></div>
+</nav>
 
-<div class="sort-bar">
-  <label>Sort by:</label>
-  <select id="sortSelect" onchange="renderCards()">
-    <option value="entries">Total Entries</option>
-    <option value="consensus">Consensus % (highest)</option>
-    <option value="closest">Closest Split</option>
-    <option value="alpha">Alphabetical</option>
-  </select>
-</div>
+<div class="inner">
+  <div class="header">
+    <h1>⚾ Consensus Picks</h1>
+    <div class="subtitle">Free-to-Play · Moneyline · March 31, 2026</div>
+    <div class="pill">537 entries · 14 games</div>
+  </div>
 
-<div id="cards"></div>
+  <div class="sort-bar">
+    <label>Sort by:</label>
+    <select id="sortSelect" onchange="renderCards()">
+      <option value="entries">Total Entries</option>
+      <option value="consensus">Consensus % (highest)</option>
+      <option value="closest">Closest Split</option>
+      <option value="alpha">Alphabetical</option>
+    </select>
+  </div>
+
+  <div id="cards"></div>
+</div>
 
 <script>
 const RAW = [
