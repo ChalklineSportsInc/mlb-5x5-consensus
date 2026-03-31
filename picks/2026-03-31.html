@@ -6,220 +6,55 @@
 <title>Consensus Picks – March 31, 2026</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: #0d1117;
-    color: #e6edf3;
-    min-height: 100vh;
-    padding: 0 0 48px;
-  }
-
-  /* NAV */
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #161b22;
-    border-bottom: 1px solid #21262d;
-    padding: 12px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .nav a {
-    color: #58a6ff;
-    text-decoration: none;
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 1px solid #30363d;
-    background: #0d1117;
-    transition: border-color 0.2s, background 0.2s;
-    white-space: nowrap;
-  }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d1117; color: #e6edf3; min-height: 100vh; padding: 0 0 48px; }
+  .nav { display: flex; align-items: center; justify-content: space-between; background: #161b22; border-bottom: 1px solid #21262d; padding: 12px 20px; position: sticky; top: 0; z-index: 100; }
+  .nav a { color: #58a6ff; text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 6px 12px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; transition: border-color .2s, background .2s; white-space: nowrap; }
   .nav a:hover { border-color: #58a6ff; background: #1c2333; }
-  .nav .nav-center {
-    font-size: 0.82rem;
-    color: #8b949e;
-    text-align: center;
-    flex: 1;
-    padding: 0 12px;
-  }
-  .nav-center a {
-    border: none;
-    background: none;
-    color: #8b949e;
-    font-size: 0.82rem;
-    font-weight: 400;
-    padding: 0;
-  }
+  .nav .nav-center { font-size: 0.82rem; color: #8b949e; text-align: center; flex: 1; padding: 0 12px; }
+  .nav-center a { border: none; background: none; color: #8b949e; font-size: 0.82rem; font-weight: 400; padding: 0; }
   .nav-center a:hover { color: #58a6ff; background: none; border: none; }
-  .nav .nav-placeholder {
-    width: 90px;
-    visibility: hidden;
-  }
-
-  /* MAIN */
+  .nav-placeholder { width: 90px; visibility: hidden; }
   .inner { padding: 24px 16px 0; }
-
-  .header {
-    text-align: center;
-    margin-bottom: 32px;
-  }
-  .header h1 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: 0.5px;
-  }
-  .header .subtitle {
-    font-size: 0.85rem;
-    color: #8b949e;
-    margin-top: 6px;
-  }
-  .header .pill {
-    display: inline-block;
-    background: #1f2937;
-    border: 1px solid #30363d;
-    border-radius: 20px;
-    padding: 4px 14px;
-    font-size: 0.75rem;
-    color: #58a6ff;
-    margin-top: 10px;
-  }
-
-  .sort-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-  }
-  .sort-bar label { font-size: 0.8rem; color: #8b949e; }
-  .sort-bar select {
-    background: #161b22;
-    border: 1px solid #30363d;
-    color: #e6edf3;
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    cursor: pointer;
-  }
-
-  .game-card {
-    background: #161b22;
-    border: 1px solid #21262d;
-    border-radius: 12px;
-    padding: 18px 20px;
-    margin-bottom: 14px;
-    transition: border-color 0.2s;
-  }
+  .header { text-align: center; margin-bottom: 32px; }
+  .header h1 { font-size: 1.6rem; font-weight: 700; color: #fff; letter-spacing: .5px; }
+  .header .subtitle { font-size: .85rem; color: #8b949e; margin-top: 6px; }
+  .header .pill { display: inline-block; background: #1f2937; border: 1px solid #30363d; border-radius: 20px; padding: 4px 14px; font-size: .75rem; color: #58a6ff; margin-top: 10px; }
+  .sort-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; justify-content: flex-end; flex-wrap: wrap; }
+  .sort-bar label { font-size: .8rem; color: #8b949e; }
+  .sort-bar select { background: #161b22; border: 1px solid #30363d; color: #e6edf3; padding: 5px 10px; border-radius: 6px; font-size: .8rem; cursor: pointer; }
+  .game-card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; transition: border-color .2s; }
   .game-card:hover { border-color: #388bfd; }
-
-  .game-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .matchup {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #f0f6fc;
-  }
-  .meta { font-size: 0.75rem; color: #8b949e; }
-  .meta span {
-    background: #1f2937;
-    border-radius: 4px;
-    padding: 2px 8px;
-    border: 1px solid #30363d;
-  }
-
+  .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+  .matchup { font-size: .9rem; font-weight: 600; color: #f0f6fc; }
+  .meta { font-size: .75rem; color: #8b949e; }
+  .meta span { background: #1f2937; border-radius: 4px; padding: 2px 8px; border: 1px solid #30363d; }
   .bar-section { display: flex; flex-direction: column; gap: 10px; }
-
   .team-row { display: flex; align-items: center; gap: 12px; }
-  .team-name {
-    width: 190px;
-    font-size: 0.82rem;
-    color: #c9d1d9;
-    text-align: right;
-    flex-shrink: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .bar-track {
-    flex: 1;
-    height: 30px;
-    background: #0d1117;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-  .bar-fill {
-    height: 100%;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 10px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: #fff;
-    transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
-    min-width: 2px;
-  }
+  .team-name { width: 190px; font-size: .82rem; color: #c9d1d9; text-align: right; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { flex: 1; height: 30px; background: #0d1117; border-radius: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; font-size: .78rem; font-weight: 700; color: #fff; transition: width .6s cubic-bezier(.4,0,.2,1); min-width: 2px; }
   .bar-fill.favorite { background: linear-gradient(90deg, #1a56db, #3b82f6); }
   .bar-fill.underdog { background: linear-gradient(90deg, #6b3fa0, #a855f7); }
-
-  .bar-label {
-    font-size: 0.78rem;
-    color: #8b949e;
-    min-width: 60px;
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-
-  .consensus-badge {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-left: 8px;
-    vertical-align: middle;
-  }
+  .bar-label { font-size: .78rem; color: #8b949e; min-width: 60px; flex-shrink: 0; white-space: nowrap; }
+  .consensus-badge { display: inline-block; font-size: .65rem; font-weight: 700; padding: 2px 7px; border-radius: 10px; text-transform: uppercase; letter-spacing: .5px; margin-left: 8px; vertical-align: middle; }
   .badge-chalk { background: #1c4a9c; color: #93c5fd; }
   .badge-split { background: #1a3a2a; color: #4ade80; }
   .badge-close { background: #3b2a1a; color: #fb923c; }
-
-  @media (max-width: 600px) {
-    .team-name { width: 100px; font-size: 0.72rem; }
-    .bar-fill  { font-size: 0.68rem; }
-  }
+  @media (max-width:600px) { .team-name { width: 100px; font-size: .72rem; } .bar-fill { font-size: .68rem; } }
 </style>
 </head>
 <body>
-
 <nav class="nav">
   <a href="2026-03-30.html">← Mar 30</a>
   <div class="nav-center"><a href="../index.html">⌂ Index</a> &nbsp;·&nbsp; <a href="https://freeplay.covers.com/games/mlb-5x5/leaderboard" target="_blank">🏆 Leaderboard</a></div>
   <div class="nav-placeholder"></div>
 </nav>
-
 <div class="inner">
   <div class="header">
     <h1>⚾ Consensus Picks</h1>
     <div class="subtitle">Free-to-Play · Moneyline · March 31, 2026</div>
-    <div class="pill">537 entries · 14 games</div>
+    <div class="pill">620 entries · 14 games</div>
   </div>
-
   <div class="sort-bar">
     <label>Sort by:</label>
     <select id="sortSelect" onchange="renderCards()">
@@ -229,90 +64,69 @@
       <option value="alpha">Alphabetical</option>
     </select>
   </div>
-
   <div id="cards"></div>
 </div>
-
 <script>
 const RAW = [
-  { team1:"Toronto Blue Jays",      team2:"Colorado Rockies",        c1:397, c2:11,  total:408 },
-  { team1:"Philadelphia Phillies",  team2:"Washington Nationals",    c1:302, c2:27,  total:329 },
-  { team1:"Los Angeles Dodgers",    team2:"Cleveland Guardians",     c1:285, c2:6,   total:291 },
-  { team1:"Miami Marlins",          team2:"Chicago White Sox",       c1:182, c2:34,  total:216 },
-  { team1:"Baltimore Orioles",      team2:"Texas Rangers",           c1:83,  c2:131, total:214 },
-  { team1:"Atlanta Braves",         team2:"Athletics",               c1:183, c2:20,  total:203 },
-  { team1:"St. Louis Cardinals",    team2:"New York Mets",           c1:16,  c2:157, total:173 },
-  { team1:"Chicago Cubs",           team2:"Los Angeles Angels",      c1:136, c2:22,  total:158 },
-  { team1:"Cincinnati Reds",        team2:"Pittsburgh Pirates",      c1:81,  c2:73,  total:154 },
-  { team1:"Houston Astros",         team2:"Boston Red Sox",          c1:115, c2:25,  total:140 },
-  { team1:"Milwaukee Brewers",      team2:"Tampa Bay Rays",          c1:115, c2:15,  total:130 },
-  { team1:"Seattle Mariners",       team2:"New York Yankees",        c1:31,  c2:80,  total:111 },
-  { team1:"San Diego Padres",       team2:"San Francisco Giants",    c1:32,  c2:49,  total:81  },
-  { team1:"Arizona Diamondbacks",   team2:"Detroit Tigers",          c1:28,  c2:49,  total:77  },
+  { team1:"Toronto Blue Jays",      team2:"Colorado Rockies",        c1:453, c2:13,  total:466 },
+  { team1:"Philadelphia Phillies",  team2:"Washington Nationals",    c1:340, c2:32,  total:372 },
+  { team1:"Los Angeles Dodgers",    team2:"Cleveland Guardians",     c1:324, c2:7,   total:331 },
+  { team1:"Miami Marlins",          team2:"Chicago White Sox",       c1:214, c2:39,  total:253 },
+  { team1:"Baltimore Orioles",      team2:"Texas Rangers",           c1:96,  c2:153, total:249 },
+  { team1:"Atlanta Braves",         team2:"Athletics",               c1:210, c2:26,  total:236 },
+  { team1:"St. Louis Cardinals",    team2:"New York Mets",           c1:18,  c2:179, total:197 },
+  { team1:"Chicago Cubs",           team2:"Los Angeles Angels",      c1:153, c2:34,  total:187 },
+  { team1:"Cincinnati Reds",        team2:"Pittsburgh Pirates",      c1:96,  c2:88,  total:184 },
+  { team1:"Houston Astros",         team2:"Boston Red Sox",          c1:137, c2:28,  total:165 },
+  { team1:"Milwaukee Brewers",      team2:"Tampa Bay Rays",          c1:130, c2:18,  total:148 },
+  { team1:"Seattle Mariners",       team2:"New York Yankees",        c1:36,  c2:94,  total:130 },
+  { team1:"Arizona Diamondbacks",   team2:"Detroit Tigers",          c1:35,  c2:59,  total:94  },
+  { team1:"San Diego Padres",       team2:"San Francisco Giants",    c1:35,  c2:53,  total:88  },
 ];
-
-function getBadge(maxPct) {
-  if (maxPct >= 85) return ['chalk', 'Chalk'];
-  if (maxPct <= 55) return ['close', 'Close'];
-  return ['split', 'Contested'];
+function getBadge(p) {
+  if (p >= 85) return ['chalk','Chalk'];
+  if (p <= 55) return ['close','Close'];
+  return ['split','Contested'];
 }
-
 function renderCards() {
   const sort = document.getElementById('sortSelect').value;
   let data = RAW.map(d => {
-    const p1 = parseFloat((d.c1 / d.total * 100).toFixed(1));
-    const p2 = parseFloat((d.c2 / d.total * 100).toFixed(1));
-    return { ...d, p1, p2, maxPct: Math.max(p1, p2) };
+    const p1 = parseFloat((d.c1/d.total*100).toFixed(1));
+    const p2 = parseFloat((d.c2/d.total*100).toFixed(1));
+    return {...d, p1, p2, maxPct: Math.max(p1,p2)};
   });
-
-  if (sort === 'entries')   data.sort((a,b) => b.total - a.total);
-  if (sort === 'consensus') data.sort((a,b) => b.maxPct - a.maxPct);
-  if (sort === 'closest')   data.sort((a,b) => a.maxPct - b.maxPct);
-  if (sort === 'alpha')     data.sort((a,b) => a.team1.localeCompare(b.team1));
-
+  if (sort==='entries')   data.sort((a,b)=>b.total-a.total);
+  if (sort==='consensus') data.sort((a,b)=>b.maxPct-a.maxPct);
+  if (sort==='closest')   data.sort((a,b)=>a.maxPct-b.maxPct);
+  if (sort==='alpha')     data.sort((a,b)=>a.team1.localeCompare(b.team1));
   const container = document.getElementById('cards');
   container.innerHTML = '';
-
   data.forEach(d => {
-    const [badgeKey, badgeLabel] = getBadge(d.maxPct);
-    const cc1 = d.p1 >= 50 ? 'favorite' : 'underdog';
-    const cc2 = d.p2 >= 50 ? 'favorite' : 'underdog';
-
+    const [bk,bl] = getBadge(d.maxPct);
+    const cc1 = d.p1>=50 ? 'favorite' : 'underdog';
+    const cc2 = d.p2>=50 ? 'favorite' : 'underdog';
     const card = document.createElement('div');
     card.className = 'game-card';
     card.innerHTML = `
       <div class="game-header">
-        <div class="matchup">
-          ${d.team1} <span style="color:#8b949e;font-weight:400">vs</span> ${d.team2}
-          <span class="consensus-badge badge-${badgeKey}">${badgeLabel}</span>
-        </div>
+        <div class="matchup">${d.team1} <span style="color:#8b949e;font-weight:400">vs</span> ${d.team2}<span class="consensus-badge badge-${bk}">${bl}</span></div>
         <div class="meta"><span>${d.total} picks</span></div>
       </div>
       <div class="bar-section">
         <div class="team-row">
           <div class="team-name" title="${d.team1}">${d.team1}</div>
-          <div class="bar-track">
-            <div class="bar-fill ${cc1}" style="width:${d.p1}%">
-              ${d.p1 >= 12 ? d.p1 + '%' : ''}
-            </div>
-          </div>
+          <div class="bar-track"><div class="bar-fill ${cc1}" style="width:${d.p1}%">${d.p1>=12?d.p1+'%':''}</div></div>
           <div class="bar-label">${d.p1}% &nbsp;<span style="color:#555">|</span>&nbsp; ${d.c1}</div>
         </div>
         <div class="team-row">
           <div class="team-name" title="${d.team2}">${d.team2}</div>
-          <div class="bar-track">
-            <div class="bar-fill ${cc2}" style="width:${d.p2}%">
-              ${d.p2 >= 12 ? d.p2 + '%' : ''}
-            </div>
-          </div>
+          <div class="bar-track"><div class="bar-fill ${cc2}" style="width:${d.p2}%">${d.p2>=12?d.p2+'%':''}</div></div>
           <div class="bar-label">${d.p2}% &nbsp;<span style="color:#555">|</span>&nbsp; ${d.c2}</div>
         </div>
-      </div>
-    `;
+      </div>`;
     container.appendChild(card);
   });
 }
-
 renderCards();
 </script>
 </body>
