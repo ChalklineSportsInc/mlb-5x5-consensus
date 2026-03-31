@@ -31,9 +31,10 @@ PICKS_DIR.mkdir(exist_ok=True)
 def analyse(csv_path: str):
     df = pd.read_csv(csv_path)
 
-    # Derive date from created_date column
-    raw_date = df["created_date"].dropna().iloc[0]
-    date_obj = datetime.fromisoformat(raw_date).date()
+    # Derive date from created_date column — use most common date to avoid
+    # early entries from the prior day pulling the date back incorrectly
+    dates = pd.to_datetime(df["created_date"].dropna()).dt.date
+    date_obj = dates.value_counts().idxmax()
     date_str = str(date_obj)                          # YYYY-MM-DD
     display  = date_obj.strftime("%B %-d, %Y")        # March 31, 2026 (Linux/Mac)
     # Windows fallback:
