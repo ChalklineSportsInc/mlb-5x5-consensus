@@ -14,7 +14,7 @@
   .nav-center a { border: none; background: none; color: #8b949e; font-size: 0.82rem; font-weight: 400; padding: 0; }
   .nav-center a:hover { color: #58a6ff; background: none; border: none; }
   .nav-placeholder { width: 100px; visibility: hidden; }
-  .inner { max-width: 1000px; margin: 0 auto; padding: 24px 16px 0; }
+  .inner { max-width: 1200px; margin: 0 auto; padding: 24px 16px 0; }
   .header { text-align: center; margin-bottom: 28px; }
   .header h1 { font-size: 1.6rem; font-weight: 700; color: #fff; letter-spacing: .5px; }
   .header .subtitle { font-size: .85rem; color: #8b949e; margin-top: 6px; }
@@ -42,7 +42,7 @@
   .badge-chalk { background: #1c4a9c; color: #93c5fd; }
   .badge-split { background: #1a3a2a; color: #4ade80; }
   .badge-close { background: #3b2a1a; color: #fb923c; }
-  .nav-bottom { max-width: 1000px; margin: 32px auto 0; padding: 0 16px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .nav-bottom { max-width: 1200px; margin: 32px auto 0; padding: 0 16px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
   .nav-bottom a { color: #58a6ff; text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 8px 18px; border-radius: 8px; border: 1px solid #30363d; background: #161b22; transition: border-color .2s, background .2s; white-space: nowrap; }
   .nav-bottom a:hover { border-color: #58a6ff; background: #1c2333; }
   .nav-bottom a.disabled { opacity: 0.3; pointer-events: none; }
@@ -61,7 +61,7 @@
   <div class="header">
     <h1>&#9918; Consensus Picks</h1>
     <div class="subtitle">Free-to-Play &middot; Moneyline &middot; March 31, 2026</div>
-    <div class="pill">620 entries &middot; 14 games</div>
+    <div class="pill">813 entries &middot; 14 games</div>
   </div>
 
   <div class="filter-bar">
@@ -84,20 +84,20 @@
 
 <script>
 const RAW = [
-  { team1:"Toronto Blue Jays", team2:"Colorado Rockies", c1:453, c2:13, total:466 },
-  { team1:"Philadelphia Phillies", team2:"Washington Nationals", c1:340, c2:32, total:372 },
-  { team1:"Los Angeles Dodgers", team2:"Cleveland Guardians", c1:324, c2:7, total:331 },
-  { team1:"Miami Marlins", team2:"Chicago White Sox", c1:214, c2:39, total:253 },
-  { team1:"Baltimore Orioles", team2:"Texas Rangers", c1:96, c2:153, total:249 },
-  { team1:"Atlanta Braves", team2:"Athletics", c1:210, c2:26, total:236 },
-  { team1:"St. Louis Cardinals", team2:"New York Mets", c1:18, c2:179, total:197 },
-  { team1:"Chicago Cubs", team2:"Los Angeles Angels", c1:153, c2:34, total:187 },
-  { team1:"Cincinnati Reds", team2:"Pittsburgh Pirates", c1:96, c2:88, total:184 },
-  { team1:"Houston Astros", team2:"Boston Red Sox", c1:137, c2:28, total:165 },
-  { team1:"Milwaukee Brewers", team2:"Tampa Bay Rays", c1:130, c2:18, total:148 },
-  { team1:"Seattle Mariners", team2:"New York Yankees", c1:36, c2:94, total:130 },
-  { team1:"Arizona Diamondbacks", team2:"Detroit Tigers", c1:35, c2:59, total:94 },
-  { team1:"San Diego Padres", team2:"San Francisco Giants", c1:35, c2:53, total:88 },
+  { team1:"Toronto Blue Jays", team2:"Colorado Rockies", c1:589, c2:16, total:605 },
+  { team1:"Philadelphia Phillies", team2:"Washington Nationals", c1:445, c2:37, total:482 },
+  { team1:"Los Angeles Dodgers", team2:"Cleveland Guardians", c1:416, c2:12, total:428 },
+  { team1:"Miami Marlins", team2:"Chicago White Sox", c1:281, c2:50, total:331 },
+  { team1:"Atlanta Braves", team2:"Athletics", c1:276, c2:45, total:321 },
+  { team1:"Baltimore Orioles", team2:"Texas Rangers", c1:115, c2:201, total:316 },
+  { team1:"St. Louis Cardinals", team2:"New York Mets", c1:23, c2:244, total:267 },
+  { team1:"Cincinnati Reds", team2:"Pittsburgh Pirates", c1:122, c2:120, total:242 },
+  { team1:"Chicago Cubs", team2:"Los Angeles Angels", c1:187, c2:44, total:231 },
+  { team1:"Houston Astros", team2:"Boston Red Sox", c1:175, c2:46, total:221 },
+  { team1:"Milwaukee Brewers", team2:"Tampa Bay Rays", c1:157, c2:27, total:184 },
+  { team1:"Seattle Mariners", team2:"New York Yankees", c1:49, c2:127, total:176 },
+  { team1:"Arizona Diamondbacks", team2:"Detroit Tigers", c1:50, c2:86, total:136 },
+  { team1:"San Diego Padres", team2:"San Francisco Giants", c1:50, c2:75, total:125 },
 ];
 
 let currentSort = 'entries';
@@ -156,9 +156,5 @@ function renderCards() {
 
 renderCards();
 </script>
-
-<div style="text-align:center;padding:32px 16px 16px;font-size:0.72rem;color:#484f58;">
-  v2 &nbsp;·&nbsp; Updated March 31, 2026
-</div>
 </body>
 </html>
