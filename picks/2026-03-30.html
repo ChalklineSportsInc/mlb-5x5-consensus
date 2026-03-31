@@ -13,15 +13,17 @@
   .nav .nav-center { font-size: 0.82rem; color: #8b949e; text-align: center; flex: 1; padding: 0 12px; }
   .nav-center a { border: none; background: none; color: #8b949e; font-size: 0.82rem; font-weight: 400; padding: 0; }
   .nav-center a:hover { color: #58a6ff; background: none; border: none; }
-  .nav-placeholder { width: 90px; visibility: hidden; }
-  .inner { padding: 24px 16px 0; }
-  .header { text-align: center; margin-bottom: 32px; }
+  .nav-placeholder { width: 100px; visibility: hidden; }
+  .inner { max-width: 1200px; margin: 0 auto; padding: 24px 16px 0; }
+  .header { text-align: center; margin-bottom: 28px; }
   .header h1 { font-size: 1.6rem; font-weight: 700; color: #fff; letter-spacing: .5px; }
   .header .subtitle { font-size: .85rem; color: #8b949e; margin-top: 6px; }
   .header .pill { display: inline-block; background: #1f2937; border: 1px solid #30363d; border-radius: 20px; padding: 4px 14px; font-size: .75rem; color: #58a6ff; margin-top: 10px; }
-  .sort-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; justify-content: flex-end; flex-wrap: wrap; }
-  .sort-bar label { font-size: .8rem; color: #8b949e; }
-  .sort-bar select { background: #161b22; border: 1px solid #30363d; color: #e6edf3; padding: 5px 10px; border-radius: 6px; font-size: .8rem; cursor: pointer; }
+  .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+  .filter-bar span { font-size: 0.75rem; color: #8b949e; margin-right: 4px; }
+  .pill-btn { font-size: 0.75rem; font-weight: 600; padding: 5px 14px; border-radius: 20px; border: 1px solid #30363d; background: #161b22; color: #8b949e; cursor: pointer; transition: all .15s; white-space: nowrap; }
+  .pill-btn:hover { border-color: #58a6ff; color: #58a6ff; }
+  .pill-btn.active { background: #1a3a6b; border-color: #58a6ff; color: #93c5fd; }
   .game-card { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; transition: border-color .2s; }
   .game-card:hover { border-color: #388bfd; }
   .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
@@ -33,73 +35,97 @@
   .team-name { width: 190px; font-size: .82rem; color: #c9d1d9; text-align: right; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .bar-track { flex: 1; height: 30px; background: #0d1117; border-radius: 6px; overflow: hidden; }
   .bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; font-size: .78rem; font-weight: 700; color: #fff; transition: width .6s cubic-bezier(.4,0,.2,1); min-width: 2px; }
-  .bar-fill.favorite { background: linear-gradient(90deg, #1a56db, #3b82f6); }
-  .bar-fill.underdog { background: linear-gradient(90deg, #6b3fa0, #a855f7); }
+  .bar-fill.favorite { background: linear-gradient(90deg,#1a56db,#3b82f6); }
+  .bar-fill.underdog { background: linear-gradient(90deg,#6b3fa0,#a855f7); }
   .bar-label { font-size: .78rem; color: #8b949e; min-width: 60px; flex-shrink: 0; white-space: nowrap; }
   .consensus-badge { display: inline-block; font-size: .65rem; font-weight: 700; padding: 2px 7px; border-radius: 10px; text-transform: uppercase; letter-spacing: .5px; margin-left: 8px; vertical-align: middle; }
   .badge-chalk { background: #1c4a9c; color: #93c5fd; }
   .badge-split { background: #1a3a2a; color: #4ade80; }
   .badge-close { background: #3b2a1a; color: #fb923c; }
+  .nav-bottom { max-width: 1200px; margin: 32px auto 0; padding: 0 16px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .nav-bottom a { color: #58a6ff; text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 8px 18px; border-radius: 8px; border: 1px solid #30363d; background: #161b22; transition: border-color .2s, background .2s; white-space: nowrap; }
+  .nav-bottom a:hover { border-color: #58a6ff; background: #1c2333; }
+  .nav-bottom a.disabled { opacity: 0.3; pointer-events: none; }
   @media (max-width:600px) { .team-name { width: 100px; font-size: .72rem; } .bar-fill { font-size: .68rem; } }
 </style>
 </head>
 <body>
+
 <nav class="nav">
   <div class="nav-placeholder"></div>
-  <div class="nav-center"><a href="../index.html">⌂ Index</a> &nbsp;·&nbsp; <a href="https://freeplay.covers.com/games/mlb-5x5/leaderboard" target="_blank">🏆 Leaderboard</a></div>
-  <a href="2026-03-31.html">Mar 31 →</a>
+  <div class="nav-center"><a href="../index.html">&#8962; Index</a> &nbsp;&middot;&nbsp; <a href="https://freeplay.covers.com/games/mlb-5x5/leaderboard" target="_blank">&#127942; Leaderboard</a></div>
+  <a href="2026-03-30.html">Mar 30 →</a>
 </nav>
+
 <div class="inner">
   <div class="header">
-    <h1>⚾ Consensus Picks</h1>
-    <div class="subtitle">Free-to-Play · Moneyline · March 30, 2026</div>
-    <div class="pill">794 entries · 15 games</div>
+    <h1>&#9918; Consensus Picks</h1>
+    <div class="subtitle">Free-to-Play &middot; Moneyline &middot; March 30, 2026</div>
+    <div class="pill">794 entries &middot; 15 games</div>
   </div>
-  <div class="sort-bar">
-    <label>Sort by:</label>
-    <select id="sortSelect" onchange="renderCards()">
-      <option value="entries">Total Entries</option>
-      <option value="consensus">Consensus % (highest)</option>
-      <option value="closest">Closest Split</option>
-      <option value="alpha">Alphabetical</option>
-    </select>
+
+  <div class="filter-bar">
+    <span>Sort:</span>
+    <button class="pill-btn active" onclick="setSort('entries', this)">Most Picked</button>
+    <button class="pill-btn" onclick="setSort('consensus', this)">Chalk First</button>
+    <button class="pill-btn" onclick="setSort('closest', this)">Closest Split</button>
+    <button class="pill-btn" onclick="setSort('alpha', this)">A&ndash;Z</button>
   </div>
+
   <div id="cards"></div>
+
+  <div class="nav-bottom">
+    <a class="disabled">← Prev</a>
+    <a href="../index.html">&#8962; Home</a>
+    <a href="https://freeplay.covers.com/games/mlb-5x5/leaderboard" target="_blank">&#127942; Leaderboard</a>
+    <a href="2026-03-30.html">Mar 30 →</a>
+  </div>
 </div>
+
 <script>
 const RAW = [
-  { team1:"Toronto Blue Jays",      team2:"Colorado Rockies",        c1:485, c2:7,   total:492 },
-  { team1:"Philadelphia Phillies",  team2:"Washington Nationals",    c1:420, c2:26,  total:446 },
-  { team1:"Los Angeles Dodgers",    team2:"Cleveland Guardians",     c1:371, c2:12,  total:383 },
-  { team1:"Kansas City Royals",     team2:"Minnesota Twins",         c1:302, c2:40,  total:342 },
-  { team1:"Chicago Cubs",           team2:"Los Angeles Angels",      c1:305, c2:20,  total:325 },
-  { team1:"Miami Marlins",          team2:"Chicago White Sox",       c1:252, c2:71,  total:323 },
-  { team1:"Baltimore Orioles",      team2:"Texas Rangers",           c1:177, c2:105, total:282 },
-  { team1:"Cincinnati Reds",        team2:"Pittsburgh Pirates",      c1:201, c2:73,  total:274 },
-  { team1:"Milwaukee Brewers",      team2:"Tampa Bay Rays",          c1:181, c2:33,  total:214 },
-  { team1:"St. Louis Cardinals",    team2:"New York Mets",           c1:40,  c2:166, total:206 },
-  { team1:"Atlanta Braves",         team2:"Athletics",               c1:131, c2:48,  total:179 },
-  { team1:"Seattle Mariners",       team2:"New York Yankees",        c1:81,  c2:81,  total:162 },
-  { team1:"Houston Astros",         team2:"Boston Red Sox",          c1:34,  c2:90,  total:124 },
-  { team1:"San Diego Padres",       team2:"San Francisco Giants",    c1:90,  c2:24,  total:114 },
-  { team1:"Arizona Diamondbacks",   team2:"Detroit Tigers",          c1:51,  c2:53,  total:104 },
+  { team1:"Toronto Blue Jays", team2:"Colorado Rockies", c1:485, c2:7, total:492 },
+  { team1:"Philadelphia Phillies", team2:"Washington Nationals", c1:420, c2:26, total:446 },
+  { team1:"Los Angeles Dodgers", team2:"Cleveland Guardians", c1:371, c2:12, total:383 },
+  { team1:"Kansas City Royals", team2:"Minnesota Twins", c1:302, c2:40, total:342 },
+  { team1:"Chicago Cubs", team2:"Los Angeles Angels", c1:305, c2:20, total:325 },
+  { team1:"Miami Marlins", team2:"Chicago White Sox", c1:252, c2:71, total:323 },
+  { team1:"Baltimore Orioles", team2:"Texas Rangers", c1:177, c2:105, total:282 },
+  { team1:"Cincinnati Reds", team2:"Pittsburgh Pirates", c1:201, c2:73, total:274 },
+  { team1:"Milwaukee Brewers", team2:"Tampa Bay Rays", c1:181, c2:33, total:214 },
+  { team1:"St. Louis Cardinals", team2:"New York Mets", c1:40, c2:166, total:206 },
+  { team1:"Atlanta Braves", team2:"Athletics", c1:131, c2:48, total:179 },
+  { team1:"Seattle Mariners", team2:"New York Yankees", c1:81, c2:81, total:162 },
+  { team1:"Houston Astros", team2:"Boston Red Sox", c1:34, c2:90, total:124 },
+  { team1:"San Diego Padres", team2:"San Francisco Giants", c1:90, c2:24, total:114 },
+  { team1:"Arizona Diamondbacks", team2:"Detroit Tigers", c1:51, c2:53, total:104 },
 ];
+
+let currentSort = 'entries';
+
 function getBadge(p) {
   if (p >= 85) return ['chalk','Chalk'];
   if (p <= 55) return ['close','Close'];
   return ['split','Contested'];
 }
+
+function setSort(sort, btn) {
+  currentSort = sort;
+  document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
 function renderCards() {
-  const sort = document.getElementById('sortSelect').value;
   let data = RAW.map(d => {
     const p1 = parseFloat((d.c1/d.total*100).toFixed(1));
     const p2 = parseFloat((d.c2/d.total*100).toFixed(1));
     return {...d, p1, p2, maxPct: Math.max(p1,p2)};
   });
-  if (sort==='entries')   data.sort((a,b)=>b.total-a.total);
-  if (sort==='consensus') data.sort((a,b)=>b.maxPct-a.maxPct);
-  if (sort==='closest')   data.sort((a,b)=>a.maxPct-b.maxPct);
-  if (sort==='alpha')     data.sort((a,b)=>a.team1.localeCompare(b.team1));
+  if (currentSort==='entries')   data.sort((a,b)=>b.total-a.total);
+  if (currentSort==='consensus') data.sort((a,b)=>b.maxPct-a.maxPct);
+  if (currentSort==='closest')   data.sort((a,b)=>a.maxPct-b.maxPct);
+  if (currentSort==='alpha')     data.sort((a,b)=>a.team1.localeCompare(b.team1));
   const container = document.getElementById('cards');
   container.innerHTML = '';
   data.forEach(d => {
@@ -128,6 +154,7 @@ function renderCards() {
     container.appendChild(card);
   });
 }
+
 renderCards();
 </script>
 </body>
