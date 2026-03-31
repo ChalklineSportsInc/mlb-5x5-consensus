@@ -230,7 +230,7 @@ HTML_TEMPLATE = """\
 
 <nav class="nav">
   {prev_html}
-  <div class="nav-center"><a href="../index.html">⌂ Index</a></div>
+  <div class="nav-center"><a href="../index.html">⌂ Index</a> &nbsp;·&nbsp; <a href="https://freeplay.covers.com/games/mlb-5x5/leaderboard" target="_blank">🏆 Leaderboard</a></div>
   {next_html}
 </nav>
 
