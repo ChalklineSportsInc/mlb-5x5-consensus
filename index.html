@@ -4,268 +4,234 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MLB 5x5 Consensus Picks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --cy: #FFD200;
+    --co: #FD5000;
+    --cn: #15202B;
+    --cs: #253341;
+    --cm: #2E3F52;
+    --cd: #8899AA;
+    --cl: #C8D6E5;
+    --cb: #1C2B3A;
+    --cbr: #2E3F52;
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: #0d1117;
-    color: #e6edf3;
-    min-height: 100vh;
-    padding: 32px 16px 64px;
-  }
-
-  .header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  .header h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-family: 'Barlow', sans-serif;
+    background: var(--cn);
     color: #fff;
-    letter-spacing: 0.5px;
-  }
-  .header .subtitle {
-    font-size: 0.9rem;
-    color: #8b949e;
-    margin-top: 8px;
-  }
-  .header .pill {
-    display: inline-block;
-    background: #1f2937;
-    border: 1px solid #30363d;
-    border-radius: 20px;
-    padding: 4px 14px;
-    font-size: 0.75rem;
-    color: #58a6ff;
-    margin-top: 12px;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(253,80,0,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(255,210,0,0.05) 0%, transparent 50%);
   }
 
-  .season-grid {
-    max-width: 1000px;
-    margin: 0 auto;
+  .nav-top {
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(21,32,43,0.97);
+    border-bottom: 3px solid var(--cy);
+    padding: 0 24px; height: 56px;
   }
+  .nav-center-links { display: flex; gap: 24px; align-items: center; }
+  .nav-center-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600; font-size: 0.8rem; letter-spacing: 0.1em;
+    text-transform: uppercase; text-decoration: none; color: var(--cd);
+    transition: color .15s;
+  }
+  .nav-center-links a:hover { color: #fff; }
+  .nav-center-links .lb {
+    color: var(--co); border: 1px solid rgba(253,80,0,0.4);
+    padding: 5px 14px; border-radius: 4px;
+  }
+  .nav-center-links .lb:hover { color: #fff; background: rgba(253,80,0,0.15); }
 
-  .month-group {
+  .inner { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+
+  .hero {
+    padding: 40px 0 32px;
+    border-bottom: 1px solid var(--cbr);
     margin-bottom: 32px;
   }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--co); margin-bottom: 8px;
+  }
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 3.2rem; font-weight: 900; line-height: 1;
+    letter-spacing: -0.01em; text-transform: uppercase;
+  }
+  .hero-title span { color: var(--cy); }
+  .hero-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--cd); margin-top: 10px;
+  }
+  .stats-row {
+    display: flex; gap: 14px; margin-top: 20px; flex-wrap: wrap;
+  }
+  .stat-pill {
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-radius: 6px; padding: 10px 20px;
+    display: flex; flex-direction: column;
+  }
+  .stat-pill .num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.7rem; font-weight: 800; color: var(--cy); line-height: 1;
+  }
+  .stat-pill .lbl {
+    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--cd); margin-top: 2px;
+  }
+
+  .month-group { margin-bottom: 28px; }
   .month-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #8b949e;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #21262d;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--co);
+    margin-bottom: 12px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--cbr);
   }
 
   .pick-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #161b22;
-    border: 1px solid #21262d;
-    border-radius: 10px;
-    padding: 14px 20px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.2s, background 0.2s;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--cb); border: 1px solid var(--cbr);
+    border-left: 4px solid var(--cbr);
+    border-radius: 6px; padding: 14px 20px;
+    margin-bottom: 8px; text-decoration: none; color: inherit;
+    transition: border-color .2s, border-left-color .2s, transform .15s;
   }
-  .pick-card:hover {
-    border-color: #388bfd;
-    background: #1c2333;
-  }
+  .pick-card:hover { border-color: var(--cy); border-left-color: var(--cy); transform: translateX(2px); }
 
-  .card-left {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
+  .card-left { display: flex; align-items: center; gap: 16px; }
   .date-badge {
-    background: #0d1117;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    padding: 6px 12px;
-    text-align: center;
-    min-width: 56px;
+    background: var(--cs); border: 1px solid var(--cm);
+    border-radius: 6px; padding: 7px 14px;
+    text-align: center; min-width: 58px;
   }
   .date-badge .day {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #58a6ff;
-    line-height: 1;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem; font-weight: 900; color: var(--cy); line-height: 1;
   }
-  .date-badge .month {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #8b949e;
-    margin-top: 2px;
+  .date-badge .mon {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--cd); margin-top: 1px;
   }
-
   .card-info .title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #f0f6fc;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem; font-weight: 700; letter-spacing: 0.03em;
+    text-transform: uppercase; color: #fff;
   }
   .card-info .meta {
-    font-size: 0.75rem;
-    color: #8b949e;
-    margin-top: 3px;
+    font-size: 0.75rem; color: var(--cd); margin-top: 3px;
   }
-
   .card-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .arrow {
-    color: #388bfd;
-    font-size: 1rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em;
+    color: var(--cy); text-transform: uppercase;
   }
 
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: #8b949e;
-    font-size: 0.9rem;
-  }
-  .empty-state .icon {
-    font-size: 2.5rem;
-    margin-bottom: 12px;
-  }
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--cd); font-size: 0.9rem; }
 
-  .stats-bar {
-    max-width: 1000px;
-    margin: 0 auto 32px;
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .stat-pill {
-    background: #161b22;
-    border: 1px solid #21262d;
-    border-radius: 8px;
-    padding: 10px 18px;
-    font-size: 0.8rem;
-    color: #8b949e;
-  }
-  .stat-pill strong {
-    color: #f0f6fc;
-    font-size: 1.1rem;
-    display: block;
-    margin-bottom: 2px;
+  .site-footer {
+    text-align: center; padding: 32px 16px;
+    font-size: 0.65rem; color: var(--cm); letter-spacing: 0.06em;
   }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>⚾ MLB 5x5 Consensus Picks</h1>
-  <div class="subtitle">Free-to-Play · Moneyline · 2026 Season</div>
-  <div class="pill" id="totalDays">Loading...</div>
-  <div style="margin-top:12px"><a href="https://freeplay.covers.com/games/mlb-5x5/leaderboard" target="_blank" style="color:#58a6ff;font-size:0.85rem;text-decoration:none;">🏆 View Leaderboard</a></div>
-</div>
+<nav class="nav-top">
+  <div class="nav-center-links">
+    <a href="https://freeplay.covers.com/games/mlb-5x5/leaderboard" target="_blank" class="lb">&#127942; Leaderboard</a>
+  </div>
+</nav>
 
-<div class="stats-bar" id="statsBar"></div>
+<div class="inner">
+  <div class="hero">
+    <div class="hero-eyebrow">2026 Season &mdash; Free-to-Play</div>
+    <div class="hero-title">MLB 5x5 <span>Consensus</span></div>
+    <div class="hero-sub">Moneyline Pick Distribution &mdash; All Games</div>
+    <div class="stats-row" id="statsRow"></div>
+  </div>
 
-<div class="season-grid" id="seasonGrid">
-  <div class="empty-state">
-    <div class="icon">📋</div>
-    <div>No pick files found.<br>Add HTML files to the <code>picks/</code> folder.</div>
+  <div id="seasonGrid">
+    <div class="empty-state">No pick files found yet.</div>
   </div>
 </div>
 
+<div class="site-footer" id="footer">v4 &nbsp;&middot;&nbsp; Built March 31, 2026</div>
+
 <script>
-  // ─── REGISTRY ───────────────────────────────────────────────────────────────
-  // Add a new entry here each day you upload a picks file.
-  // Format: { date: "YYYY-MM-DD", entries: 000, games: 00 }
-  // The file is assumed to live at picks/YYYY-MM-DD.html
+  // ─── REGISTRY ────────────────────────────────────────────────────────────────
   const PICKS = [
     { date: "2026-03-30", entries: 794,  games: 15 },
-    { date: "2026-03-31", entries: 813,  games: 14 },
+    { date: "2026-03-31", entries: 827,  games: 14 },
   ];
-  // ────────────────────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────────────────
 
-  const MONTH_NAMES = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const FULL_MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const FMONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
-  function parseDate(str) {
-    const [y, m, d] = str.split('-').map(Number);
-    return new Date(y, m - 1, d);
-  }
+  function parseDate(s) { const [y,m,d] = s.split('-').map(Number); return new Date(y,m-1,d); }
 
   function render() {
     if (!PICKS.length) return;
+    const sorted = [...PICKS].sort((a,b) => b.date.localeCompare(a.date));
+    const totalEntries = PICKS.reduce((s,p) => s+p.entries, 0);
+    const totalGames   = PICKS.reduce((s,p) => s+p.games, 0);
 
-    // Sort descending
-    const sorted = [...PICKS].sort((a, b) => b.date.localeCompare(a.date));
-
-    // Stats
-    const totalEntries = PICKS.reduce((s, p) => s + p.entries, 0);
-    const totalGames   = PICKS.reduce((s, p) => s + p.games, 0);
-    document.getElementById('totalDays').textContent = `${PICKS.length} day${PICKS.length !== 1 ? 's' : ''} tracked`;
-    document.getElementById('statsBar').innerHTML = `
-      <div class="stat-pill"><strong>${PICKS.length}</strong>Days Tracked</div>
-      <div class="stat-pill"><strong>${totalEntries.toLocaleString()}</strong>Total Entries</div>
-      <div class="stat-pill"><strong>${totalGames}</strong>Games Covered</div>
+    document.getElementById('statsRow').innerHTML = `
+      <div class="stat-pill"><span class="num">${PICKS.length}</span><span class="lbl">Days Tracked</span></div>
+      <div class="stat-pill"><span class="num">${totalEntries.toLocaleString()}</span><span class="lbl">Total Entries</span></div>
+      <div class="stat-pill"><span class="num">${totalGames}</span><span class="lbl">Games Covered</span></div>
     `;
 
-    // Group by month
     const byMonth = {};
     sorted.forEach(p => {
       const d = parseDate(p.date);
       const key = `${d.getFullYear()}-${String(d.getMonth()).padStart(2,'0')}`;
-      if (!byMonth[key]) byMonth[key] = { label: FULL_MONTHS[d.getMonth()] + ' ' + d.getFullYear(), items: [] };
+      if (!byMonth[key]) byMonth[key] = { label: FMONTHS[d.getMonth()] + ' ' + d.getFullYear(), items: [] };
       byMonth[key].items.push(p);
     });
 
     const grid = document.getElementById('seasonGrid');
     grid.innerHTML = '';
-
     Object.values(byMonth).forEach(group => {
-      const section = document.createElement('div');
-      section.className = 'month-group';
-      section.innerHTML = `<div class="month-label">${group.label}</div>`;
-
+      const sec = document.createElement('div');
+      sec.className = 'month-group';
+      sec.innerHTML = `<div class="month-label">${group.label}</div>`;
       group.items.forEach(p => {
         const d = parseDate(p.date);
-        const dayNum  = d.getDate();
-        const monAbbr = MONTH_NAMES[d.getMonth()];
-        const weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d.getDay()];
-
         const a = document.createElement('a');
         a.className = 'pick-card';
         a.href = `picks/${p.date}.html`;
         a.innerHTML = `
           <div class="card-left">
             <div class="date-badge">
-              <div class="day">${dayNum}</div>
-              <div class="month">${monAbbr}</div>
+              <div class="day">${d.getDate()}</div>
+              <div class="mon">${MONTHS[d.getMonth()]}</div>
             </div>
             <div class="card-info">
-              <div class="title">${weekday}, ${monAbbr} ${dayNum}</div>
-              <div class="meta">${p.entries.toLocaleString()} entries &nbsp;·&nbsp; ${p.games} games</div>
+              <div class="title">${DAYS[d.getDay()]}, ${MONTHS[d.getMonth()]} ${d.getDate()}</div>
+              <div class="meta">${p.entries.toLocaleString()} entries &nbsp;&middot;&nbsp; ${p.games} games</div>
             </div>
           </div>
-          <div class="card-right">
-            <div class="arrow">→</div>
-          </div>
-        `;
-        section.appendChild(a);
+          <div class="card-right">View &#8594;</div>`;
+        sec.appendChild(a);
       });
-
-      grid.appendChild(section);
+      grid.appendChild(sec);
     });
   }
 
   render();
 </script>
-
-<div style="text-align:center;padding:32px 16px 16px;font-size:0.72rem;color:#484f58;">
-  v2 &nbsp;·&nbsp; Updated March 31, 2026
-</div>
 </body>
 </html>
