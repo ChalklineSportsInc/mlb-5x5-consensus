@@ -561,7 +561,8 @@ def main():
     try:    timestamp = now.strftime("%B %-d, %Y at %-I:%M %p UTC")
     except: timestamp = now.strftime("%B %#d, %Y at %#I:%M %p UTC")
 
-    existing_dates = get_sorted_dates()
+    # Exclude current date so patch_prev_file always targets the genuinely previous file
+    existing_dates = [d for d in get_sorted_dates() if d != date_str]
     prev_top, next_top, prev_bot, next_bot = build_nav(date_str, existing_dates)
 
     html = HTML.format(
