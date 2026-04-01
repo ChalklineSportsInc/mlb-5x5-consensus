@@ -127,6 +127,11 @@ HTML = """\
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MLB 5x5 free-to-play consensus picks — see where the crowd is leaning on every moneyline.">
+<meta property="og:title" content="MLB 5x5 Consensus Picks — {display}">
+<meta property="og:description" content="{entries} entries across {games} games. See where the crowd is leaning on every MLB moneyline.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHRleHQgeT0iMjYiIGZvbnQtc2l6ZT0iMjgiPuKavjwvdGV4dD4KPC9zdmc+">
 <title>MLB 5x5 Consensus &middot; {display}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
