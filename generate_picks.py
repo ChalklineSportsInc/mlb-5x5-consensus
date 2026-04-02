@@ -19,6 +19,55 @@ PICKS_DIR  = REPO_ROOT / "picks"
 INDEX_FILE = REPO_ROOT / "index.html"
 PICKS_DIR.mkdir(exist_ok=True)
 
+
+# ── Fuzzy date parser ─────────────────────────────────────────────────────────
+def parse_date_from_filename(filepath):
+    """
+    Try to extract a game date from the filename using fuzzy matching.
+    Accepts: 2026-04-02, 20260402, Apr2, april-2, april_2_2026,
+             04-02, 4-2, Wednesday_Apr_2, consensus_april2_final, etc.
+    Returns a date object or None (caller falls back to CSV data).
+    """
+    import re as _re
+    from pathlib import Path as _Path
+    name = _Path(filepath).stem.lower()
+    name = _re.sub(r'[_\-\.]+', ' ', name)
+
+    MONTHS = {
+        'jan':1,'feb':2,'mar':3,'apr':4,'may':5,'jun':6,
+        'jul':7,'aug':8,'sep':9,'oct':10,'nov':11,'dec':12,
+        'january':1,'february':2,'march':3,'april':4,'june':6,
+        'july':7,'august':8,'september':9,'october':10,'november':11,'december':12
+    }
+
+    # ISO or compact: 2026-04-02 or 20260402
+    m = _re.search(r'(20\d\d)[^\d]?(\d{2})[^\d]?(\d{2})', name)
+    if m:
+        try: return datetime(int(m.group(1)), int(m.group(2)), int(m.group(3))).date()
+        except: pass
+
+    # MM DD with no year: 04 02, 4 2
+    m = _re.search(r'\b(\d{1,2})\s(\d{1,2})\b', name)
+    if m:
+        mo, day = int(m.group(1)), int(m.group(2))
+        if 1 <= mo <= 12 and 1 <= day <= 31:
+            try: return datetime(2026, mo, day).date()
+            except: pass
+
+    # Month name + day: apr 2, april2, april 2
+    for word, mo in sorted(MONTHS.items(), key=lambda x: -len(x[0])):
+        m = _re.search(rf'{word}\s*(\d{{1,2}})', name)
+        if m:
+            day = int(m.group(1))
+            if 1 <= day <= 31:
+                yr_m = _re.search(r'20\d\d', name)
+                yr = int(yr_m.group()) if yr_m else 2026
+                try: return datetime(yr, mo, day).date()
+                except: pass
+
+    return None
+
+
 VERSION = "v4"
 
 
