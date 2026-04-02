@@ -3,18 +3,20 @@ name: Generate Consensus Picks
 on:
   push:
     paths:
-      - 'csv/*.csv'   # triggers whenever a CSV is pushed to the csv/ folder
+      - 'csv/*.csv'
 
 jobs:
   generate:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write   # needed to push the generated HTML back to the repo
+      contents: write
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -24,9 +26,14 @@ jobs:
       - name: Install dependencies
         run: pip install pandas
 
-      - name: Find new CSV files and generate HTML
+      - name: Find changed CSV and generate HTML
         run: |
-          for csv in csv/*.csv; do
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'csv/*.csv')
+          if [ -z "$CHANGED" ]; then
+            echo "No CSV changes detected, skipping."
+            exit 0
+          fi
+          for csv in $CHANGED; do
             echo "Generating picks for $csv"
             python generate_picks.py "$csv"
           done
