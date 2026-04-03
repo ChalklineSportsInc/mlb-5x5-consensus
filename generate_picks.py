@@ -76,6 +76,15 @@ def analyse(csv_path):
     df = pd.read_csv(csv_path)
     dates    = pd.to_datetime(df["created_date"].dropna()).dt.date
     date_obj = dates.value_counts().idxmax()
+
+    # Override with filename date if detected — filename always wins
+    filename_date = parse_date_from_filename(csv_path)
+    if filename_date:
+        date_obj = filename_date
+        print(f"  Date from filename: {date_obj}")
+    else:
+        print(f"  Date from CSV data: {date_obj}")
+
     date_str = str(date_obj)
     try:
         display = date_obj.strftime("%B %-d, %Y")
