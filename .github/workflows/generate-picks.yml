@@ -32,6 +32,7 @@ jobs:
             exit 0
           fi
           echo "Processing: $CHANGED"
+          [ -f "$CHANGED" ] || { echo "File already deleted, skipping."; exit 0; }
           python generate_picks.py "$CHANGED"
           git rm "$CHANGED"
 
