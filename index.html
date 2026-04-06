@@ -144,6 +144,72 @@
 
   .empty-state { text-align: center; padding: 60px 20px; color: var(--cd); font-size: 0.9rem; }
 
+  .week-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cy);
+    padding: 10px 14px 8px;
+    margin: 12px 0 8px;
+    background: rgba(255,210,0,0.07);
+    border-left: 3px solid var(--cy);
+    border-radius: 0 4px 4px 0;
+  }
+  .scoreboards {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .scoreboard {
+    flex: 0 0 auto;
+    background: var(--cb);
+    border: 1px solid var(--cbr);
+    border-radius: 8px;
+    padding: 18px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .scoreboard.current {
+    border-color: var(--cy);
+    background: linear-gradient(135deg, rgba(255,210,0,0.08) 0%, var(--cb) 60%);
+  }
+  .scoreboard.season {
+    border-color: var(--co);
+    background: linear-gradient(135deg, rgba(253,80,0,0.08) 0%, var(--cb) 60%);
+  }
+  .scoreboard-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .scoreboard.current .scoreboard-label { color: var(--cy); }
+  .scoreboard.season  .scoreboard-label { color: var(--co); }
+  .scoreboard-stats {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .scoreboard-stat .num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
+    color: #fff;
+  }
+  .scoreboard-stat .lbl {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cd);
+    margin-top: 3px;
+  }
   .site-footer {
     text-align: center; padding: 32px 16px;
     font-size: 0.65rem; color: var(--cm); letter-spacing: 0.06em;
@@ -162,10 +228,10 @@
   <div class="hero">
     <div class="hero-eyebrow">2026 Season &mdash; Free-to-Play</div>
     <div class="hero-title">MLB 5x5 <span>Consensus</span></div>
-    <div class="hero-sub">Moneyline Pick Distribution &mdash; All Games</div>
-    <div class="stats-row" id="statsRow"></div>
+    <div class="hero-sub">Daily Moneyline Pick Distribution</div>
   </div>
 
+  <div class="scoreboards" id="scoreboards"></div>
   <div id="seasonGrid">
     <div class="empty-state">No pick files found yet.</div>
   </div>
@@ -197,11 +263,35 @@
     const totalEntries = PICKS.reduce((s,p) => s+p.entries, 0);
     const totalGames   = PICKS.reduce((s,p) => s+p.games, 0);
 
-    document.getElementById('statsRow').innerHTML = `
-      <div class="stat-pill"><span class="num">${PICKS.length}</span><span class="lbl">Days Tracked</span></div>
-      <div class="stat-pill"><span class="num">${totalEntries.toLocaleString()}</span><span class="lbl">Total Entries</span></div>
-      <div class="stat-pill"><span class="num">${totalGames}</span><span class="lbl">Games Covered</span></div>
+    // Week calculation
+    const allByDate = [...PICKS].sort((a,b) => a.date.localeCompare(b.date));
+    const currentWeekNum = Math.floor((allByDate.length - 1) / 5) + 1;
+    const weekStart = (currentWeekNum - 1) * 5;
+    const currentWeekDays = allByDate.slice(weekStart);
+    const cwEntries = currentWeekDays.reduce((s,p) => s+p.entries, 0);
+    const cwGames   = currentWeekDays.reduce((s,p) => s+p.games, 0);
+    const cwDays    = currentWeekDays.length;
+
+    document.getElementById('scoreboards').innerHTML = `
+      <div class="scoreboard current">
+        <div class="scoreboard-label">⚡ Week ${currentWeekNum} — Current</div>
+        <div class="scoreboard-stats">
+          <div class="scoreboard-stat"><div class="num">${cwEntries.toLocaleString()}</div><div class="lbl">Entries</div></div>
+          <div class="scoreboard-stat"><div class="num">${cwGames}</div><div class="lbl">Games</div></div>
+          <div class="scoreboard-stat"><div class="num">${cwDays}</div><div class="lbl">Days</div></div>
+        </div>
+      </div>
+      <div class="scoreboard season">
+        <div class="scoreboard-label">📅 Season to Date</div>
+        <div class="scoreboard-stats">
+          <div class="scoreboard-stat"><div class="num">${totalEntries.toLocaleString()}</div><div class="lbl">Entries</div></div>
+          <div class="scoreboard-stat"><div class="num">${totalGames}</div><div class="lbl">Games</div></div>
+          <div class="scoreboard-stat"><div class="num">${PICKS.length}</div><div class="lbl">Days</div></div>
+        </div>
+      </div>
     `;
+
+
 
     const byMonth = {};
     sorted.forEach(p => {
@@ -213,11 +303,25 @@
 
     const grid = document.getElementById('seasonGrid');
     grid.innerHTML = '';
+    // Assign week numbers (5 contest days per week)
+    const allSorted = [...PICKS].sort((a,b) => a.date.localeCompare(b.date));
+    const weekMap = {};
+    allSorted.forEach((p, i) => { weekMap[p.date] = Math.floor(i / 5) + 1; });
+
     Object.values(byMonth).forEach(group => {
       const sec = document.createElement('div');
       sec.className = 'month-group';
       sec.innerHTML = `<div class="month-label">${group.label}</div>`;
+      let lastWeek = null;
       group.items.forEach(p => {
+        const week = weekMap[p.date];
+        if (week !== lastWeek) {
+          const wDiv = document.createElement('div');
+          wDiv.className = 'week-label';
+          wDiv.textContent = 'Week ' + week;
+          sec.appendChild(wDiv);
+          lastWeek = week;
+        }
         const d = parseDate(p.date);
         const a = document.createElement('a');
         a.className = 'pick-card';
