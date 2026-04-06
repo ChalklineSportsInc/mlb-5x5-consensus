@@ -160,6 +160,13 @@ def update_index(date_str, entries, games):
         print("  index.html not found.")
         return
     content = INDEX_FILE.read_text(encoding="utf-8")
+    # Always refresh the footer date
+    import re as _re
+    try:
+        today = datetime.now().strftime("%B %-d, %Y")
+    except ValueError:
+        today = datetime.now().strftime("%B %#d, %Y")
+    content = _re.sub(r'v4 &nbsp;&middot;&nbsp; (?:Built|Updated) [\w\s,]+', f'v4 &nbsp;&middot;&nbsp; Updated {today}', content)
     if f'date: "{date_str}"' in content:
         # Update existing entry with fresh counts
         import re
